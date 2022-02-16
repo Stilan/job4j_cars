@@ -10,10 +10,19 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String photo;
 
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
+
+    @ManyToOne
+    @JoinColumn(name = "body_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Body body;
+
+    @ManyToOne
+    @JoinColumn(name = "mark_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    private Mark mark;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owner", joinColumns = {
@@ -22,11 +31,14 @@ public class Car {
                     @JoinColumn(name = "car_id", nullable = false, updatable = false)})
     private Set<Driver> drivers = new HashSet<>();
 
+
+
     public static Car of(String name) {
         Car car = new Car();
         car.name = name;
         return car;
     }
+
 
     public int getId() {
         return id;
@@ -60,6 +72,30 @@ public class Car {
         this.drivers = drivers;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public Mark getMark() {
+        return mark;
+    }
+
+    public void setMark(Mark mark) {
+        this.mark = mark;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,11 +105,11 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return id == car.id && Objects.equals(name, car.name) && Objects.equals(engine, car.engine) && Objects.equals(drivers, car.drivers);
+        return id == car.id && Objects.equals(name, car.name) && Objects.equals(photo, car.photo) && Objects.equals(engine, car.engine) && Objects.equals(body, car.body) && Objects.equals(mark, car.mark) && Objects.equals(drivers, car.drivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, engine, drivers);
+        return Objects.hash(id, name, photo, engine, body, mark, drivers);
     }
 }
