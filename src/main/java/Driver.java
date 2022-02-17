@@ -42,11 +42,11 @@ public class Driver {
             return false;
         }
         Driver driver = (Driver) o;
-        return id == driver.id && Objects.equals(name, driver.name);
+        return id == driver.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

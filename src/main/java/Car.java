@@ -105,11 +105,11 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return id == car.id && Objects.equals(name, car.name) && Objects.equals(photo, car.photo) && Objects.equals(engine, car.engine) && Objects.equals(body, car.body) && Objects.equals(mark, car.mark) && Objects.equals(drivers, car.drivers);
+        return id == car.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, photo, engine, body, mark, drivers);
+        return Objects.hash(id);
     }
 }

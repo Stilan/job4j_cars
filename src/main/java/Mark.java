@@ -40,11 +40,11 @@ public class Mark {
             return false;
         }
         Mark mark = (Mark) o;
-        return id == mark.id && Objects.equals(name, mark.name);
+        return id == mark.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

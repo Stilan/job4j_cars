@@ -40,11 +40,11 @@ public class Body {
             return false;
         }
         Body body = (Body) o;
-        return id == body.id && Objects.equals(name, body.name);
+        return id == body.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

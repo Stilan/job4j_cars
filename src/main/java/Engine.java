@@ -42,11 +42,11 @@ public class Engine {
             return false;
         }
         Engine engine = (Engine) o;
-        return id == engine.id && Objects.equals(name, engine.name);
+        return id == engine.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

@@ -47,11 +47,11 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return id == item.id && Objects.equals(description, item.description) && Objects.equals(car, item.car);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, car);
+        return Objects.hash(id);
     }
 }
