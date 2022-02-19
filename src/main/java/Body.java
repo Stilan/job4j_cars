@@ -4,6 +4,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "body")
 public class Body {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -46,5 +47,13 @@ public class Body {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Body{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }

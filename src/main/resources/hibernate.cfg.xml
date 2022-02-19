@@ -21,6 +21,9 @@
         <mapping class="Car"/>
         <mapping class="Driver"/>
         <mapping class="Engine"/>
+        <mapping class="Item"/>
+        <mapping class="Mark"/>
+        <mapping class="Body"/>
 
     </session-factory>
 </hibernate-configuration>

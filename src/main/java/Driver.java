@@ -1,11 +1,11 @@
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "driver")
 public class Driver {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -48,5 +48,13 @@ public class Driver {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }

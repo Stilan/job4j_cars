@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -10,9 +11,18 @@ public class Item {
     private int id;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    @Temporal(TemporalType.DATE)
+    private Date created;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Car car;
+
+    public static Item of(String description) {
+        Item item = new Item();
+        item.description = description;
+        item.created = new Date(System.currentTimeMillis());
+        return item;
+    }
 
     public int getId() {
         return id;
@@ -38,6 +48,14 @@ public class Item {
         this.car = car;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,5 +71,15 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + ", car=" + car
+                + '}';
     }
 }

@@ -6,23 +6,20 @@ import java.util.Set;
 @Entity
 @Table(name = "car")
 public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
     private String photo;
 
-    @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Engine engine;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Mark mark;
 
-    @ManyToOne
-    @JoinColumn(name = "body_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
+    @ManyToOne(fetch = FetchType.LAZY)
     private Body body;
 
-    @ManyToOne
-    @JoinColumn(name = "mark_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Mark mark;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Engine engine;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owner", joinColumns = {
@@ -33,9 +30,8 @@ public class Car {
 
 
 
-    public static Car of(String name) {
+    public static Car of() {
         Car car = new Car();
-        car.name = name;
         return car;
     }
 
@@ -46,22 +42,6 @@ public class Car {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(Engine engine) {
-        this.engine = engine;
     }
 
     public Set<Driver> getDrivers() {
@@ -80,6 +60,14 @@ public class Car {
         this.photo = photo;
     }
 
+    public Mark getMark() {
+        return mark;
+    }
+
+    public void setMark(Mark mark) {
+        this.mark = mark;
+    }
+
     public Body getBody() {
         return body;
     }
@@ -88,12 +76,12 @@ public class Car {
         this.body = body;
     }
 
-    public Mark getMark() {
-        return mark;
+    public Engine getEngine() {
+        return engine;
     }
 
-    public void setMark(Mark mark) {
-        this.mark = mark;
+    public void setEngine(Engine engine) {
+        this.engine = engine;
     }
 
     @Override
@@ -111,5 +99,17 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{"
+                + "id=" + id
+                + ", photo='" + photo + '\''
+                + ", mark=" + mark
+                + ", body=" + body
+                + ", engine=" + engine
+                + ", drivers=" + drivers
+                + '}';
     }
 }
