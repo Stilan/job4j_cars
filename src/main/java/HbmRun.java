@@ -8,7 +8,7 @@ import java.util.List;
 
 public class HbmRun {
     public static void main(String[] args) {
-        List<Item> rsl = null;
+        List rsl = null;
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
@@ -72,6 +72,8 @@ public class HbmRun {
 **/
 
             rsl = AdRepository.instOf().lastDayAnnouncements();
+
+
 
             session.getTransaction().commit();
             session.close();

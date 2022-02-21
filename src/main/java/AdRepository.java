@@ -37,10 +37,19 @@ public class AdRepository implements Store {
         return list;
     }
 
-    public  List adsWithPhoto() {
+    public  List<Item> adsWithPhoto() {
         Session session = sf.openSession();
         session.beginTransaction();
-        return null;
+        List list = session.createQuery("select distinct it from Item it "
+                + "join fetch it.car c "
+                + "join fetch c.mark m "
+                + "join fetch c.body b"
+                + " join fetch c.engine e"
+                + " join fetch c.drivers d"
+                + " where c.photo <> null ", Item.class).list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
     }
 
     public  List<Item> searchByBrand(String name) {
