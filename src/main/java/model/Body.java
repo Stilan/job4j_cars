@@ -1,20 +1,27 @@
+package model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "engine")
-public class Engine {
+@Table(name = "body")
+public class Body {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static Engine of(String name) {
-        Engine engine = new Engine();
-        engine.name = name;
-        return engine;
+    public Body(String name) {
+        this.name = name;
+    }
+
+    public Body(int id) {
+        this.id = id;
+    }
+
+    public Body() {
+
     }
 
     public int getId() {
@@ -41,8 +48,8 @@ public class Engine {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Engine engine = (Engine) o;
-        return id == engine.id;
+        Body body = (Body) o;
+        return id == body.id;
     }
 
     @Override
@@ -52,7 +59,7 @@ public class Engine {
 
     @Override
     public String toString() {
-        return "Engine{"
+        return "Body{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + '}';

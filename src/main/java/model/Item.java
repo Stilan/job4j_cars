@@ -1,3 +1,5 @@
+package model;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -14,16 +16,31 @@ public class Item {
     @Temporal(TemporalType.DATE)
     private Date created;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "car_id")
     private Car car;
 
-    public static Item of(String description) {
-        Item item = new Item();
-        item.description = description;
-        item.created = new Date(System.currentTimeMillis());
-        return item;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Item(String description, Date created, Car car, User user) {
+        this.description = description;
+        this.created = created;
+        this.car = car;
+        this.user = user;
+
     }
 
+    public Item(int id, String description, Date created, Car car) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.car = car;
+    }
+    public Item() {
+
+    }
     public int getId() {
         return id;
     }
@@ -56,6 +73,14 @@ public class Item {
         this.created = created;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -80,6 +105,7 @@ public class Item {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", car=" + car
+                + ", user=" + user
                 + '}';
     }
 }

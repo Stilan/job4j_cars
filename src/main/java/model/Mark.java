@@ -1,20 +1,27 @@
+package model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "driver")
-public class Driver {
+@Table(name = "mark")
+public class Mark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static Driver of(String name) {
-        Driver driver = new Driver();
-        driver.name = name;
-        return driver;
+    public Mark(String name) {
+        this.name = name;
+    }
+
+    public Mark(int id) {
+        this.id = id;
+    }
+
+    public Mark() {
+
     }
 
     public int getId() {
@@ -41,8 +48,8 @@ public class Driver {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Driver driver = (Driver) o;
-        return id == driver.id;
+        Mark mark = (Mark) o;
+        return id == mark.id;
     }
 
     @Override
@@ -52,7 +59,7 @@ public class Driver {
 
     @Override
     public String toString() {
-        return "Driver{"
+        return "Mark{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + '}';

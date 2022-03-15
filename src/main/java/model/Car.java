@@ -1,3 +1,5 @@
+package model;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,31 +12,39 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String photo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "mark_id")
     private Mark mark;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "body_id")
     private Body body;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "engine_id")
     private Engine engine;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "history_owner", joinColumns = {
-            @JoinColumn(name = "driver_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "car_id", nullable = false, updatable = false)})
-    private Set<Driver> drivers = new HashSet<>();
-
-
-
-    public static Car of() {
-        Car car = new Car();
-        return car;
+    public Car(int id, Mark mark, Body body, Engine engine) {
+        this.id = id;
+        this.mark = mark;
+        this.body = body;
+        this.engine = engine;
     }
 
+    public Car(Mark mark, Body body, Engine engine) {
+        this.mark = mark;
+        this.body = body;
+        this.engine = engine;
+    }
+
+
+    public Car() {
+    }
+
+    public Car(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -42,22 +52,6 @@ public class Car {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Set<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public Mark getMark() {
@@ -105,11 +99,9 @@ public class Car {
     public String toString() {
         return "Car{"
                 + "id=" + id
-                + ", photo='" + photo + '\''
                 + ", mark=" + mark
                 + ", body=" + body
                 + ", engine=" + engine
-                + ", drivers=" + drivers
                 + '}';
     }
 }

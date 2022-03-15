@@ -1,20 +1,31 @@
+package model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "mark")
-public class Mark {
+@Table(name = "engine")
+public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static Mark of(String name) {
-        Mark mark = new Mark();
-        mark.name = name;
-        return mark;
+
+
+    public Engine(String name) {
+        this.name = name;
     }
+
+    public Engine(int id) {
+        this.id = id;
+    }
+
+    public Engine() {
+    }
+
 
     public int getId() {
         return id;
@@ -40,8 +51,8 @@ public class Mark {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Mark mark = (Mark) o;
-        return id == mark.id;
+        Engine engine = (Engine) o;
+        return id == engine.id;
     }
 
     @Override
@@ -51,7 +62,7 @@ public class Mark {
 
     @Override
     public String toString() {
-        return "Mark{"
+        return "Engine{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + '}';
