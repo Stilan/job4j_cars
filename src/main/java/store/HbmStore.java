@@ -42,9 +42,9 @@ public class HbmStore implements Store {
     }
 
     @Override
-    public List<Item> findAllItem() {
+    public List<Ads> findAllItem() {
         return this.tx(
-                session -> session.createQuery("from model.Item").list()
+                session -> session.createQuery("from model.Ads").list()
         );
     }
 
@@ -57,7 +57,7 @@ public class HbmStore implements Store {
     }
 
     @Override
-    public void addItem(Item item) {
+    public void addItem(Ads item) {
          this.tx(
                 session -> {
                     session.save(item.getCar());
@@ -86,12 +86,14 @@ public class HbmStore implements Store {
         );
     }
     @Override
-   public User findByNameUser(String name, String email) {
+   public User findByNameUser(String name, String email, String password) {
         return this.tx(
                 session -> {
-                    Query query = session.createQuery("from model.User where name = :nameUser and email = :emailUser");
+                    Query query = session.createQuery(
+                            "from model.User where name = :nameUser and email = :emailUser and password = :passwordUser");
                     query.setParameter("nameUser", name);
                     query.setParameter("emailUser", email);
+                    query.setParameter("passwordUser", password);
                     return (User) query.uniqueResult();
                 }
         );

@@ -42,6 +42,7 @@ $(document).ready(function () {
 });
 
 function add() {
+    let username = window.localStorage.getItem('user');
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080//job4j_cars_war_exploded/index.do',
@@ -49,21 +50,12 @@ function add() {
             description: $('#description').val(),
             mark: $('#mark').val(),
             body: $('#body').val(),
-            engine: $('#engine').val()
+            engine: $('#engine').val(),
+            prise: $('#prise').val(),
+            username: username
         }
-    }).done(function (data) {
-
-    }).fail(function (err) {
-        console.log(err);
-    })
-}
-
-function addIn() {
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080//job4j_cars_war_exploded/index.do'
     }).done(function () {
-        window.location.href = 'http://localhost:8080//job4j_cars_war_exploded/index.do'
+        window.location.href = 'http://localhost:8080//job4j_cars_war_exploded/index.html'
     }).fail(function (err) {
         console.log(err);
     })

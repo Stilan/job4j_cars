@@ -13,6 +13,8 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int price;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "mark_id")
     private Mark mark;
@@ -25,17 +27,24 @@ public class Car {
     @JoinColumn(name = "engine_id")
     private Engine engine;
 
-    public Car(int id, Mark mark, Body body, Engine engine) {
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Car(int id, Mark mark, Body body, Engine engine, int price) {
         this.id = id;
         this.mark = mark;
         this.body = body;
         this.engine = engine;
+        this.price = price;
     }
 
-    public Car(Mark mark, Body body, Engine engine) {
+    public Car(Mark mark, Body body, Engine engine, int price, User user) {
         this.mark = mark;
         this.body = body;
         this.engine = engine;
+        this.price = price;
+        this.user = user;
     }
 
 
@@ -78,6 +87,22 @@ public class Car {
         this.engine = engine;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,9 +124,12 @@ public class Car {
     public String toString() {
         return "Car{"
                 + "id=" + id
+                + ", prise=" + price
                 + ", mark=" + mark
                 + ", body=" + body
                 + ", engine=" + engine
+                + ", price=" + price
+                + ", user=" + user
                 + '}';
     }
 }

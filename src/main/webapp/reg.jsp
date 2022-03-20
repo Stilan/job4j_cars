@@ -46,6 +46,10 @@
                         <label>Email</label>
                         <input type="text" class="form-control" name="email" id="email">
                     </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" class="form-control" name="password" id="password">
+                    </div>
                     <button type="submit" class="btn btn-primary" onclick="validate()">Зарегистрироваться</button>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">

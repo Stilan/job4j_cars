@@ -1,12 +1,12 @@
 
 CREATE TABLE IF NOT EXISTS car
 (
-    id SERIAL PRIMARY KEY,
-    name varchar(255),
-    photo varchar(255),
-    body_id int references body(id),
-    engine_id int references engine(id),
-    mark_id int references mark(id)
+     id SERIAL PRIMARY KEY,
+     body_id int references body(id),
+     engine_id int references engine(id),
+     mark_id int references mark(id),
+     user_id int references users(id),
+     price int
 );
 
 CREATE TABLE IF NOT EXISTS body
@@ -21,12 +21,6 @@ CREATE TABLE IF NOT EXISTS engine
     name varchar(255)
 );
 
-CREATE TABLE IF NOT EXISTS driver
-(
-    id SERIAL PRIMARY KEY,
-    name varchar(255)
-);
-
 CREATE TABLE IF NOT EXISTS mark
 (
     id SERIAL PRIMARY KEY,
@@ -36,13 +30,25 @@ CREATE TABLE IF NOT EXISTS mark
 CREATE TABLE IF NOT EXISTS item
 (
     id SERIAL PRIMARY KEY,
-    name varchar(255),
+    description varchar(255),
     car_id int references car(id)
 );
 
-CREATE TABLE IF NOT EXISTS history_owner
+CREATE TABLE IF NOT EXISTS users
 (
-    id SERIAL PRIMARY KEY,
-    driver_id int references driver(id),
-    car_id int references car(id)
+   id SERIAL PRIMARY KEY,
+   name varchar(255),
+   email varchar(255),
+   password varchar(255)
 );
+
+insert into mark(name) values ('Toyota');
+insert into mark(name) values ('Lada');
+
+insert into engine(name) values ('V8');
+insert into engine(name) values ('V6');
+
+insert into body(name) values ('Седан');
+insert into body(name) values ('Универсал');
+
+DELETE FROM body;

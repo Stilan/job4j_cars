@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Ads {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,27 +20,20 @@ public class Item {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
-    public Item(String description, Date created, Car car, User user) {
-        this.description = description;
-        this.created = created;
-        this.car = car;
-        this.user = user;
-
-    }
-
-    public Item(int id, String description, Date created, Car car) {
+    public Ads(int id, String description, Date created, Car car) {
         this.id = id;
         this.description = description;
         this.created = created;
         this.car = car;
     }
-    public Item() {
+    public Ads() {
 
     }
+
+    public Ads(String description, Date date, Car prise) {
+    }
+
     public int getId() {
         return id;
     }
@@ -73,13 +66,6 @@ public class Item {
         this.created = created;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -89,7 +75,7 @@ public class Item {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Item item = (Item) o;
+        Ads item = (Ads) o;
         return id == item.id;
     }
 
@@ -105,7 +91,6 @@ public class Item {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", car=" + car
-                + ", user=" + user
                 + '}';
     }
 }

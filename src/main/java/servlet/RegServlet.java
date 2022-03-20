@@ -15,15 +15,15 @@ public class RegServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
-        if (HbmStore.instOf().findByNameUser(name, email) == null) {
-            User user =  HbmStore.instOf().addUser(new User(name, email));
+        String password = req.getParameter("password");
+        if (HbmStore.instOf().findByNameUser(name, email, password) == null) {
+            User user =  HbmStore.instOf().addUser(new User(name, email, password));
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/index.do");
+            resp.sendRedirect(req.getContextPath() + "/index.html");
         } else {
             req.setAttribute("error", "Пользавател уже существует");
             req.getRequestDispatcher("reg.jsp").forward(req, resp);
         }
-
     }
 }

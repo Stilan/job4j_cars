@@ -20,7 +20,7 @@
 
         <mapping class="model.Car"/>
         <mapping class="model.Engine"/>
-        <mapping class="model.Item"/>
+        <mapping class="model.Ads"/>
         <mapping class="model.Mark"/>
         <mapping class="model.Body"/>
         <mapping class="model.User"/>

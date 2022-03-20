@@ -26,6 +26,10 @@
                 alert($('#name').attr('name'));
             }
         }
+        function addUser(){
+            let username = $('#name').val();
+            localStorage.setItem("user", username);
+        }
     </script>
     <title>Работа мечты</title>
 </head>
@@ -42,12 +46,16 @@
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/auth.do" method="post">
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>Имя</label>
                         <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="form-group">
-                        <label>Имя</label>
+                        <label>Email</label>
                         <input type="text" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" class="form-control" name="password" id="password">
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="validate()">Войти</button>
                     <c:if test="${not empty error}">

@@ -69,11 +69,11 @@ public class AdRepository implements Store {
         return list;
     }
 **/
-    public List<Item> findAllItem() {
+    public List<Ads> findAllItem() {
         Session session = sf.openSession();
         session.beginTransaction();
         List list = session.createQuery(
-                "select distinct it from Item it "
+                "select distinct it from Ads it "
                         + "join fetch it.car c "
                         + "join fetch c.mark m "
                         + "join fetch c.body b"
@@ -97,12 +97,12 @@ public class AdRepository implements Store {
    }
 
     @Override
-    public void addItem(Item item) {
+    public void addItem(Ads item) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery("insert into Item (description, created, car) "
+        session.createQuery("insert into Ads (description, created, car) "
                         + "select distinct it "
-                        + "from Item it"
+                        + "from Ads it"
                         + " join fetch it.car c"
                         + " join fetch c.mark m "
                         + " join fetch c.body b"
@@ -133,7 +133,7 @@ public class AdRepository implements Store {
     }
 
     @Override
-    public User findByNameUser(String name, String email) {
+    public User findByNameUser(String name, String email, String passwordUser) {
         return null;
     }
 

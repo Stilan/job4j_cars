@@ -11,10 +11,12 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String password;
 
-    public User(String name, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public User() {
@@ -44,6 +46,14 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -67,6 +77,7 @@ public class User {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", email='" + email + '\''
+                + ", password='" + password + '\''
                 + '}';
     }
 }
