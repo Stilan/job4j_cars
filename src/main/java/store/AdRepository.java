@@ -142,5 +142,20 @@ public class AdRepository implements Store {
         return null;
     }
 
+    @Override
+    public Mark findMarkId(int ids) {
+        return null;
+    }
+
+    @Override
+    public Engine findEngineId(int ids) {
+        return null;
+    }
+
+    @Override
+    public Body findBodyId(int ids) {
+        return null;
+    }
+
 
 }

@@ -9,6 +9,12 @@ CREATE TABLE IF NOT EXISTS car
      price int
 );
 
+drop TABLE car;
+drop TABLE body;
+drop TABLE engine;
+drop TABLE mark;
+drop TABLE item;
+
 CREATE TABLE IF NOT EXISTS body
 (
     id SERIAL PRIMARY KEY,
@@ -50,5 +56,7 @@ insert into engine(name) values ('V6');
 
 insert into body(name) values ('Седан');
 insert into body(name) values ('Универсал');
+
+insert into item(description, car_id) values ('Универсал', 1);
 
 DELETE FROM body;

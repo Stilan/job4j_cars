@@ -65,6 +65,22 @@
   </filter>
   <filter-mapping>
     <filter-name>AuthFilter</filter-name>
-    <url-pattern>*.html</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </filter-mapping>
+  <servlet>
+    <servlet-name>AdsServlet</servlet-name>
+    <servlet-class>servlet.AdsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdsServlet</servlet-name>
+    <url-pattern>/ads.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MarkServlet</servlet-name>
+    <servlet-class>servlet.MarkServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MarkServlet</servlet-name>
+    <url-pattern>/mark</url-pattern>
+  </servlet-mapping>
 </web-app>

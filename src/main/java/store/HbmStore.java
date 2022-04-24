@@ -68,6 +68,33 @@ public class HbmStore implements Store {
     }
 
     @Override
+    public Mark findMarkId(int ids) {
+        return tx(session -> {
+            Query<Mark> query = session.createQuery("select m from Mark m where m.id =: ids");
+            query.setParameter("ids", ids);
+            return query.uniqueResult();
+        });
+    }
+
+    @Override
+    public Engine findEngineId(int ids) {
+        return tx(session -> {
+            Query<Engine> query = session.createQuery("select m from Engine m where m.id =: ids");
+            query.setParameter("ids", ids);
+            return query.uniqueResult();
+        });
+    }
+
+    @Override
+    public Body findBodyId(int ids) {
+        return tx(session -> {
+            Query<Body> query = session.createQuery("select m from Body m where m.id =: ids");
+            query.setParameter("ids", ids);
+            return query.uniqueResult();
+        });
+    }
+
+    @Override
     public List<Mark> findAllMark() {
         return this.tx(
                 session -> session.createQuery("select m from Mark m", Mark.class).list()

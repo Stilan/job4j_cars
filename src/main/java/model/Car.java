@@ -39,12 +39,11 @@ public class Car {
         this.price = price;
     }
 
-    public Car(Mark mark, Body body, Engine engine, int price, User user) {
+    public Car(Mark mark, Body body, Engine engine, int price) {
         this.mark = mark;
         this.body = body;
         this.engine = engine;
         this.price = price;
-        this.user = user;
     }
 
 

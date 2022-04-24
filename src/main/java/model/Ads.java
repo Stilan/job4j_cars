@@ -21,8 +21,7 @@ public class Ads {
     private Car car;
 
 
-    public Ads(int id, String description, Date created, Car car) {
-        this.id = id;
+    public Ads(String description, Date created, Car car) {
         this.description = description;
         this.created = created;
         this.car = car;
@@ -31,8 +30,6 @@ public class Ads {
 
     }
 
-    public Ads(String description, Date date, Car prise) {
-    }
 
     public int getId() {
         return id;

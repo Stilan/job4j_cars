@@ -20,7 +20,7 @@ public class RegServlet extends HttpServlet {
             User user =  HbmStore.instOf().addUser(new User(name, email, password));
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/index.html");
+            resp.sendRedirect(req.getContextPath() + "/index.do");
         } else {
             req.setAttribute("error", "Пользавател уже существует");
             req.getRequestDispatcher("reg.jsp").forward(req, resp);

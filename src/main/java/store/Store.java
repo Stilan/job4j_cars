@@ -14,4 +14,7 @@ public interface Store {
     List<Engine> findAllEngine();
     User findByNameUser(String name, String email, String passwordUser);
     User addUser(User user);
+    Mark findMarkId(int ids);
+    Engine findEngineId(int ids);
+    Body findBodyId(int ids);
 }
