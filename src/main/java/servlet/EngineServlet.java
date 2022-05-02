@@ -2,7 +2,8 @@ package servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import store.HbmStore;
+import store.AdRepository;
+import store.EngineRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class EngineServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(HbmStore.instOf().findAllEngine());
+        String json = GSON.toJson(EngineRepository.instOf().findAllEngine());
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
         output.close();

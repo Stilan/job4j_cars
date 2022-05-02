@@ -1,161 +1,33 @@
 package store;
 
 import model.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
 
-public class AdRepository implements Store {
-
-
-    final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-            .configure().build();
-
-    private SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+public class AdRepository {
 
     private static final class Lazy {
-        private static final Store INST = new AdRepository();
+        private static final AdRepository INST = new AdRepository();
     }
-
-    public static Store instOf() {
+    public static AdRepository instOf() {
         return Lazy.INST;
     }
-/**
-    public List<Item> lastDayAnnouncements() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery("select distinct it from Item it "
-                        + "join fetch it.car c "
-                        + "join fetch c.mark m "
-                        + "join fetch c.body b"
-                        + " join fetch c.engine e"
-                        + " where it.created  > current_date() - 1", Item.class).list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
 
-    public  List<Item> adsWithPhoto() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery("select distinct it from Item it "
-                + "join fetch it.car c "
-                + "join fetch c.mark m "
-                + "join fetch c.body b"
-                + " join fetch c.engine e"
-                + " where c.photo <> null ", Item.class).list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
 
-    public List<Item> searchByBrand(String name) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery(
-                "select distinct it from Item it "
-                        + "join fetch it.car c "
-                        + "join fetch c.mark m "
-                        + "join fetch c.body b"
-                        + " join fetch c.engine e"
-                        + " where m.name = :nameMark ", Item.class
-        ).setParameter("nameMark", name).list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
-**/
     public List<Ads> findAllItem() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery(
-                "select distinct it from Ads it "
-                        + "join fetch it.car c "
-                        + "join fetch c.mark m "
-                        + "join fetch c.body b"
-                        + " join fetch c.engine e").list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        return Repository.tx(
+                session -> session.createQuery("from model.Ads").list()
+        );
     }
-   public Car findByCar(int id) {
-       Session session = sf.openSession();
-       session.beginTransaction();
-       Car car = session.createQuery(
-               "select distinct it from Car it "
-                       + "join fetch it.mark m "
-                       + "join fetch it.body b"
-                       + " join fetch it.engine e"
-                      + " where it.id = :id ", Car.class).setParameter("id", id).uniqueResult();
-       session.getTransaction().commit();
-       session.close();
-       return car;
-   }
 
-    @Override
     public void addItem(Ads item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.createQuery("insert into Ads (description, created, car) "
-                        + "select distinct it "
-                        + "from Ads it"
-                        + " join fetch it.car c"
-                        + " join fetch c.mark m "
-                        + " join fetch c.body b"
-                        + " join fetch c.engine e").uniqueResult();
-        session.getTransaction().commit();
-        session.close();
+        Repository.tx(
+                session -> {
+                    session.save(item.getCar());
+                    session.save(item);
+                    return item;
+                }
+        );
     }
-
-    @Override
-    public List<Mark> findAllMark() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery(
-                "select distinct m from Mark m ").list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
-
-    @Override
-    public List<Body> findAllBody() {
-        return null;
-    }
-
-    @Override
-    public List<Engine> findAllEngine() {
-        return null;
-    }
-
-    @Override
-    public User findByNameUser(String name, String email, String passwordUser) {
-        return null;
-    }
-
-    @Override
-    public User addUser(User user) {
-        return null;
-    }
-
-    @Override
-    public Mark findMarkId(int ids) {
-        return null;
-    }
-
-    @Override
-    public Engine findEngineId(int ids) {
-        return null;
-    }
-
-    @Override
-    public Body findBodyId(int ids) {
-        return null;
-    }
-
 
 }

@@ -1,7 +1,8 @@
 package servlet;
 
 import model.User;
-import store.HbmStore;
+import store.AdRepository;
+import store.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +17,8 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if (HbmStore.instOf().findByNameUser(name, email, password) == null) {
-            User user =  HbmStore.instOf().addUser(new User(name, email, password));
+        if (UserRepository.instOf().findByNameUser(name, email, password) == null) {
+            User user =  UserRepository.instOf().addUser(new User(name, email, password));
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/index.do");

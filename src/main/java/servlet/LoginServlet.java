@@ -1,7 +1,8 @@
 package servlet;
 
 import model.User;
-import store.HbmStore;
+import store.AdRepository;
+import store.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = HbmStore.instOf().findByNameUser(name, email, password);
+        User user = UserRepository.instOf().findByNameUser(name, email, password);
         if (user != null && user.getPassword().equals(password)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);

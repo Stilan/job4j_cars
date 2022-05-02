@@ -1,14 +1,16 @@
 package servlet;
 
 import model.*;
-import store.HbmStore;
+import store.AdRepository;
+import store.BodyRepository;
+import store.EngineRepository;
+import store.MarkRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class AdsServlet extends HttpServlet {
@@ -22,12 +24,12 @@ public class AdsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String markS = req.getParameter("mark");
-        Mark markId = HbmStore.instOf().findMarkId(Integer.parseInt(markS));
+        Mark markId = MarkRepository.instOf().findMarkId(Integer.parseInt(markS));
         String bodyS = req.getParameter("body");
-        Body bodyId = HbmStore.instOf().findBodyId(Integer.parseInt(bodyS));
+        Body bodyId = BodyRepository.instOf().findBodyId(Integer.parseInt(bodyS));
         System.out.println(bodyId.toString());
         String engineS = req.getParameter("engine");
-        Engine engineId = HbmStore.instOf().findEngineId(Integer.parseInt(engineS));
+        Engine engineId = EngineRepository.instOf().findEngineId(Integer.parseInt(engineS));
         Car car = new Car();
         car.setMark(markId);
         car.setBody(bodyId);
@@ -37,7 +39,7 @@ public class AdsServlet extends HttpServlet {
         ads.setDescription(req.getParameter("description"));
         ads.setCreated(new Date());
         ads.setCar(car);
-        HbmStore.instOf().addItem(ads);
+        AdRepository.instOf().addItem(ads);
         resp.sendRedirect(req.getContextPath() + "/index.do");
     }
 }
